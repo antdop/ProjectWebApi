@@ -1,0 +1,10 @@
+br\com\danilocesarmendes\services\PessoaApi.class
+br\com\danilocesarmendes\ProjectWebApiContextListener.class
+br\com\danilocesarmendes\util\SessionFactoryUtil.class
+br\com\danilocesarmendes\util\Mensagem.class
+br\com\danilocesarmendes\util\SessionFactoryInterface.class
+br\com\danilocesarmendes\services\UsuarioApi.class
+br\com\danilocesarmendes\dao\UsuarioDAO.class
+br\com\danilocesarmendes\model\Pessoa.class
+br\com\danilocesarmendes\model\Usuario.class
+br\com\danilocesarmendes\dao\PessoaDAO.class

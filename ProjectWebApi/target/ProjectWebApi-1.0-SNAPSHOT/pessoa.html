@@ -1,0 +1,157 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="personagemApp">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Project - Api</title>
+        <link rel="stylesheet" href="css/foundation.css" />
+        <script src="js/vendor/modernizr.js"></script>
+        <script src="js/libs/angular.js/angular.js"></script>
+        <script src="js/pessoa-controller.js"></script>
+        <script src="js/javascript.js"></script>
+        <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+
+    </head>
+    <body ng-controller="PessoaController">
+
+        <div class="row">
+            <h2>Cadastro de Pessoas</h2>
+            <h5 style="color:#ccc">Usando AngularJS e JAX RS</h5>
+        </div>
+
+        <div class="row">
+            <!-- FORM -->
+            <div class="large-12 columns">
+                <form ng-submit="salvar()">
+                    <fieldset>
+                        <legend>Pessoa</legend>
+                        <label>
+                            Código: 
+                            <input type="number" ng-model="fields.id" disabled="true" placeholder="Ex. 12345" />
+                        </label>
+
+                        <label>
+                            Nome: 
+                            <input type="text" ng-model="fields.nome" ng-required="true" placeholder="Ex. Daenerys Targaryen" />
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Endereço</legend>
+
+                        <label>
+                            Cep: 
+                            <input id="cep" type="text" ng-model="fields.cep" 
+                                   ng-required="true"
+                                   placeholder="Ex. 14400-000" 
+                                   onblur="pesquisacep(this.value);"/>
+                        </label>
+
+                        <label>
+                            Rua: 
+                            <input id="logradouro" type="text" ng-model="fields.logradouro" ng-required="true" placeholder="Ex. Rua das flores" />
+                        </label>
+                        <label>
+                            Numero: 
+                            <input id="numero" type="number" ng-model="fields.numero" ng-required="true" placeholder="Ex. 9999" />
+                        </label>
+
+                        <div class="row">
+                            <div class="column" style="width: 50%">
+                                <label>
+                                    Bairro: 
+                                    <input id="bairro" type="text" ng-model="fields.bairro" ng-required="true" placeholder="Ex. Centro" />
+                                </label>
+                            </div>
+                            <div class="column" style="width: 50%">
+                                <label>
+                                    Complemento 
+                                    <input type="text" ng-model="fields.complemento" placeholder="Ex. Casa, apartamento etc..." />
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="column" style="width: 33%">
+                                <label>
+                                    Cidade: 
+                                    <input id="localidade" type="text" ng-model="fields.localidade" placeholder="Ex. Rua das flores" />
+                                </label>
+                            </div>
+                            <div class="column" style="width: 33%">
+                                <label>
+                                    Estado: 
+                                    <input id="uf" type="text" ng-model="fields.uf" ng-required="true" placeholder="Ex. Casa, apartamento etc..." />
+                                </label>
+                            </div>
+                            <div class="column" style="width: 33%">
+                                <label>
+                                    Ibge 
+                                    <input id="ibge" type="text" ng-model="fields.ibge" ng-required="true" placeholder="Ex. Casa, apartamento etc..." />
+                                </label>
+                            </div>
+                        </div>
+
+                    </fieldset>
+<!--                    <fieldset>
+                        <legend>Localização</legend>
+                        <section>
+                            <article>
+                                <p><span id="status">Por favor aguarde enquanto nós tentamos locar você...</span></p>
+                            </article>
+                        </section>
+                    </fieldset>-->
+                    <fieldset>
+                        <legend>Extras</legend>
+                        <label>
+                            Cadastro Ativo:
+                            <select>
+                                <option ng-value="true" ng-model="fields.ativo" >Sim</option>
+                                <option ng-value="false" ng-model="fields.ativo" >Não</option>
+                            </select>
+                        </label>
+                        <!--                        <label>
+                                                    Descrição: 
+                                                    <textarea rows="4" ng-model="fields.ativo" ng-required="true"></textarea>
+                                                </label>-->
+
+                        <input class="button info radius small" type="button" value="Todos" ng-click="todos()" />
+                        <input class="button radius small" type="submit" value="Salvar" />
+                    </fieldset>
+                </form>
+            </div>
+
+            <!-- LISTA -->
+            <div class="large-12 columns">
+                <table ng-if="existemDados">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Cidade</th>
+                            <th>Ativo</th>
+                            <th colspan="2">Ações</th>
+                        </tr>
+                    </thead>                        
+                    <tbody>
+                        <tr ng-repeat="p in pessoas| orderBy:'nome'">
+                            <td>{{p.id}}</td>
+                            <td>{{p.nome}}</td>
+                            <td>{{p.localidade}}</td>
+                            <td>{{p.ativo}}</td>
+                            <!--                            <td >
+                                                            <span ng-if="p.ativo === true">Sim </span>
+                                                            <span ng-if="p.ativo === 'false'">Não</span>
+                                                        </td>-->
+                            <td><a href="#" class="button alert tiny radius" ng-click="excluir({{p}})">Excluir</a></td>
+                            <td><a href="#" class="button info tiny radius" ng-click="consultar({{p}})">Consultar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>$(document).foundation();</script>
+    </body>
+</html>

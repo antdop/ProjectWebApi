@@ -1,0 +1,74 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="personagemApp">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RESTful_CRUD - Exemplo</title>
+        <link rel="stylesheet" href="css/foundation.css" />
+        <script src="js/vendor/modernizr.js"></script>
+        <script src="js/libs/angular.js/angular.js"></script>
+        <script src="js/personagem-controller.js"></script>
+    </head>
+    <body ng-controller="PersonagemController">
+
+        <div class="row">
+            <h1>CRUD REST</h1>
+            <h4 style="color:#ccc">Usando AngularJS e JAX RS</h4>
+        </div>
+
+        <div class="row">
+            <!-- FORM -->
+            <div class="large-12 columns">
+                <form ng-submit="salvar()">
+                    <fieldset>
+                        <legend>Personagens de Game of Thrones</legend>
+                        <label>
+                            Código: 
+                            <input type="number" ng-model="fields.codigo" ng-required="true" placeholder="Ex. 12345" />
+                        </label>
+
+                        <label>
+                            Nome: 
+                            <input type="text" ng-model="fields.nome" ng-required="true" placeholder="Ex. Daenerys Targaryen" />
+                        </label>
+
+                        <label>
+                            Descrição: 
+                            <textarea rows="4" ng-model="fields.descricao" ng-required="true"></textarea>
+                        </label>
+                        
+                        <input class="button info radius small" type="button" value="Todos" ng-click="todos()" />
+                        <input class="button radius small" type="submit" value="Salvar" />
+                    </fieldset>
+                </form>
+            </div>
+
+            <!-- LISTA -->
+            <div class="large-12 columns">
+                <table ng-if="existemDados">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th colspan="2">Ações</th>
+                        </tr>
+                    </thead>                        
+                    <tbody>
+                        <tr ng-repeat="p in personagens | orderBy:'nome'">
+                            <td>{{p.codigo}}</td>
+                            <td>{{p.nome}}</td>
+                            <td>{{p.descricao}}</td>
+                            <td><a href="#" class="button alert tiny radius" ng-click="excluir({{p}})">Excluir</a></td>
+                            <td><a href="#" class="button info tiny radius" ng-click="consultar({{p}})">Consultar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>$(document).foundation();</script>
+    </body>
+</html>
